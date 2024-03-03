@@ -28,7 +28,7 @@ async function getnasheeds() {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            nasheeds.push(element.href.split("/nasheeds")[1]);
+            nasheeds.push(element.href.split("nasheeds")[1]);
         }
     }
     return nasheeds;

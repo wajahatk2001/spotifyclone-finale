@@ -19,7 +19,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 async function getnasheeds() {
-    let response = await fetch("/nasheeds/");
+    let response = await fetch("/nasheeds");
     let data = await response.text();
     let div = document.createElement("div");
     div.innerHTML = data;

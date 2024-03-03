@@ -19,7 +19,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 async function getnasheeds() {
-    let response = await fetch("nasheeds");
+    let response = await fetch("/nasheeds/");
     let data = await response.text();
     let div = document.createElement("div");
     div.innerHTML = data;
@@ -28,14 +28,14 @@ async function getnasheeds() {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            nasheeds.push(element.href.split("/nasheeds")[1]);
+            nasheeds.push(element.href.split("/nasheeds/")[1]);
         }
     }
     return nasheeds;
 }
 
 const playnasheed = (track, pause = false) => {
-    currentnasheed.src = "nasheeds" + track
+    currentnasheed.src = "/nasheeds/" + track
     if (!pause) {
         currentnasheed.play()
         play.src = "pause.svg";
@@ -51,22 +51,19 @@ async function main() {
 
     let nasheedsul = document.querySelector(".nasheedslist").getElementsByTagName("ul")[0];
     for (const nasheed of nasheeds) {
-        // Check if nasheed is defined before using replaceAll
-        const formattedNasheed = nasheed ? nasheed.replaceAll("%20", " ") : "";
         nasheedsul.innerHTML += `
             <li>
                 <img style="right: -14px; position: relative;" src="music.svg" alt="music-icon">
                 <div class="info">
-                    <div style="font-weight: 600;">${formattedNasheed}</div>
+                    <div style="font-weight: 600;">${nasheed.replaceAll("%20", " ")}</div>
                     <div style="color: gray; font-weight: 342;font-size:15px">Arham Hussain</div>
                 </div>
                 <div class="playnow">
                     <span>Play</span>
-                    <img id="play-${formattedNasheed}" style="position: relative; left: -5px;" src="play.svg" alt="play-button">
+                    <img id="play-${nasheed}" style="position: relative; left: -5px;" src="play.svg" alt="play-button">
                 </div>
             </li>`;
     }
-    
 
     Array.from(document.querySelector(".nasheedslist").getElementsByTagName("li")).forEach(e => {
         e.addEventListener("click", element => {

@@ -19,7 +19,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 async function getnasheeds() {
-    let response = await fetch("/nasheeds/");
+    let response = await fetch("nasheeds");
     let data = await response.text();
     let div = document.createElement("div");
     div.innerHTML = data;
@@ -28,14 +28,14 @@ async function getnasheeds() {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            nasheeds.push(element.href.split("/nasheeds/")[1]);
+            nasheeds.push(element.href.split("/nasheeds")[1]);
         }
     }
     return nasheeds;
 }
 
 const playnasheed = (track, pause = false) => {
-    currentnasheed.src = "/nasheeds/" + track
+    currentnasheed.src = "nasheeds" + track
     if (!pause) {
         currentnasheed.play()
         play.src = "pause.svg";
